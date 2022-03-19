@@ -1,11 +1,23 @@
-import React from "react";
+import React, { FC } from 'react';
+import PropTypes from 'prop-types';
+import './Style.css';
 
-const Form = ({onSubmit, children}: any) => {
+interface FormProps {
+    onSubmit?: any,
+    children: any
+}
+
+const Form: FC<FormProps> = ({onSubmit, children}: FormProps) => {
     return (
-        <form onSubmit={onSubmit}>
+        <form className='form' onSubmit={onSubmit}>
             {children}
         </form>
     )
+}
+
+Form.propTypes = {
+    onSubmit: PropTypes.func,
+    children: PropTypes.any.isRequired
 }
 
 export default Form;

@@ -1,9 +1,18 @@
-import React, { Children } from "react";
+import React, { FC } from 'react';
+import PropTypes from 'prop-types';
 
-const Button = ({type, children}:any) => {
+interface ButtonProps {
+    children: string;
+}
+
+const Button: FC<ButtonProps> = ({children}: ButtonProps) => {
     return (
-        <button type={type}>{children}</button>
+        <button> {children} </button>
     )
+}
+
+Button.propTypes = {
+    children: PropTypes.string.isRequired
 }
 
 export default Button;

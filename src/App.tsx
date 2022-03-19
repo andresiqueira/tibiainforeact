@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, FC } from 'react';
 import axios from 'axios';
 import './App.css';
 import Input from './Components/Input/Index';
@@ -7,39 +7,43 @@ import Button from './Components/Button/Index';
 import Image from './Components/Image/Index';
 import DataGrid from './Components/DataGrid/Index';
 
-
-
-function App() {
-  const [repository, setRepository] = useState<any>([''])
-  const [input, setInput] = useState<string>('')
-  const logo: string = 'https://tibiawiki.com.br/images/5/52/Tibia_Logo.png'
+const App: FC = () => {
+  const [repository, setRepository] = useState<any>(null);
+  const [input, setInput] = useState<string>('');
+  const logo: string = 'https://tibiawiki.com.br/images/5/52/Tibia_Logo.png';
  
-  useEffect(() => {
-    input && axios.get(`https://api.tibiadata.com/v2/characters/${input}.json`)
-    .then((res)=> {
-      setRepository(res)
-    })
-    .catch((err) => console.log(err)
-    )
-  },[input])
-  console.log('antes: ',repository);
+  useEffect(
+    () => {
+    const fetchData = async () => {
+      await input && axios.get(`https://api.tibiadata.com/v2/characters/${input}.json`)
+      .then((res)=> {
+      setRepository(res);
+      })
+      .catch((err) => console.log(err));
+    }
+ 
+    const timer = setTimeout(() => {
+      fetchData();
+    }, 500);
+    fetchData();
+    return () => clearTimeout(timer)
+  },[input]);
   
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
-    console.log(repository.data.characters.data)
-  }
+  // const handleSubmit = (e: any) => {
+  //   e.preventDefault()
+  //   console.log(repository)
+  // }
 
   return (
     <div className='App'>
       <Image src={logo} alt='Logo Tibia' />
       <h1>Tibia Character Information</h1>
-      <Form onSubmit={handleSubmit}>
+      <Form>
         <Input type='text' name='input' value={input} placeholder='Enter character name' onChange={
           (e: any) => setInput(e.target.value)
         }/>
-        <Button type='submit'>Check</Button>
       </Form>
-      <DataGrid/>
+      {!!repository && <DataGrid data={repository.data.characters.data}/>}
     </div>
   );
 }
