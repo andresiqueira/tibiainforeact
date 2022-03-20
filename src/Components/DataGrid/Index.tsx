@@ -7,7 +7,7 @@ interface DataGridProps {
 }
 
 const DataGrid: FC<DataGridProps> = ({data}: DataGridProps) => {
-    const {name, level, vocation, sex, residence, world} = data;
+    const [name, level, vocation, sex, residence, world] = data;
 
     return (
         <div className='datagrid'>
