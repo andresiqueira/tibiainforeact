@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import './Style.css';
 
 interface FormProps {
-    onSubmit?: any,
-    children: any
+    onSubmit?: any;
+    children: any;
 }
 
 const Form: FC<FormProps> = ({onSubmit, children}: FormProps) => {
