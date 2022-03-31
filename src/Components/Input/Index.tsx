@@ -8,11 +8,15 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
     value: string;
     placeholder: string;
     onChange: any;
+    label: string;
 }
 
-const Input: FC<InputProps> = ({type, value, name, placeholder, onChange}: InputProps) => {
+const Input: FC<InputProps> = ({type, value, name, label, placeholder, onChange}: InputProps) => {
     return (
-        <input className='input' type={type} value={value} name={name} placeholder={placeholder} onChange={onChange}/>
+        <>
+            <label>{label}</label>
+            <input className='input' type={type} value={value} name={name} placeholder={placeholder} onChange={onChange}/>
+        </>
     )
 }
 
@@ -21,7 +25,8 @@ Input.propTypes = {
     value: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     placeholder: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    label: PropTypes.string.isRequired,
 }
 
 export default Input;
