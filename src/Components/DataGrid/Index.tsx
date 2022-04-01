@@ -13,22 +13,22 @@ const DataGrid: FC<DataGridProps> = ({data}: DataGridProps) => {
         <div className='datagrid'>
             <ul>
                 <li>
-                    Nome: {name}
+                    Name: {name}
                 </li>
                 <li>
                     Level: {level}
                 </li>
                 <li>
-                   Vocação: {vocation}
+                   Vocation: {vocation}
                 </li>
                 <li>
-                   Sexo: {sex}
+                   Sex: {sex}
                 </li>
                 <li>
-                   Residência: {residence}
+                   Residence: {residence}
                 </li>
                 <li>
-                   Mundo: {world}
+                   World: {world}
                 </li>
             </ul>
         </div>

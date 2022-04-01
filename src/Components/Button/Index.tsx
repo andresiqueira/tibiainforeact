@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import PropTypes from 'prop-types';
+import './Style.css'
 
 interface ButtonProps {
     children: string;
@@ -8,7 +9,7 @@ interface ButtonProps {
 
 const Button: FC<ButtonProps> = ({children, onClick}: ButtonProps) => {
     return (
-        <button onClick={onClick}> {children} </button>
+        <button className='button' onClick={onClick}> {children} </button>
     )
 }
 

@@ -18,6 +18,13 @@ const App: FC = () => {
   const fetchData = async () => {
     await input && axios.get(`https://api.tibiadata.com/v2/characters/${input}.json`)
       .then((res) => {
+        if (res.data.characters.error) {
+          setError('Personagem não existe');
+          setTimeout(()=>{
+            setError('')
+          },3000)
+          return
+        }
         setRepository(res);
       })
       .catch((err) => console.log(err));
@@ -31,7 +38,7 @@ const App: FC = () => {
 
       setTimeout(() => {
         setError("")
-      }, 2000)
+      }, 3000)
       return
     }
 
@@ -40,7 +47,7 @@ const App: FC = () => {
       setInput('')
       setTimeout(() => {
         setError("")
-      }, 2000)
+      }, 3000)
       return
     }
 
