@@ -30,7 +30,7 @@ const App: FC = () => {
       .catch((err) => console.log(err));
   }
 
-  const onSubmit = (e: any) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault()
 
     if (input === "") {
@@ -59,7 +59,7 @@ const App: FC = () => {
     <div className='App'>
       <Image src={logo} alt='Logo Tibia' />
       <h1>Tibia Character Information</h1>
-      <Form onSubmit={onSubmit} >
+      <Form onSubmit={handleSubmit} >
         <Input
           value={input}
           type="text"
@@ -67,7 +67,7 @@ const App: FC = () => {
           label="Nome do Personagem: "
           placeholder='Enter character name'
           onChange={
-            (e: any) => setInput(e.target.value)
+            (e: any) => setInput(e.target.value.trim())
           }
         />
         <Button>SEND</Button>

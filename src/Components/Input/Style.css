@@ -18,3 +18,9 @@ input:focus {
 .label {
     display: none;
 }
+
+@media screen and (min-width: 1920px) {
+	.input {
+		width: 30%;
+	}
+}
