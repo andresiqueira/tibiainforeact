@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react';
+import React, { useState, FC, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 import Input from './Components/Input/Index';
@@ -12,11 +12,11 @@ import { handleInputValue } from './Helpers/Validators';
 const App: FC = () => {
   const [repository, setRepository] = useState<any>(null);
   const [error, setError] = useState<string>('');
-  const [input, setInput] = useState<string>('');
+  const [inputValue, setInputValue] = useState<string>('');
   const logo: string = 'https://tibiawiki.com.br/images/5/52/Tibia_Logo.png';
 
   const fetchData = async () => {
-    await input && axios.get(`https://api.tibiadata.com/v2/characters/${input}.json`)
+    await inputValue && axios.get(`${process.env.REACT_APP_API_URL}${inputValue}.json`)
       .then((res) => {
         if (res.data.characters.error) {
           setError('Personagem não existe');
@@ -33,7 +33,7 @@ const App: FC = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault()
 
-    if (input === "") {
+    if (inputValue === "") {
       setError("Campo nao pode estar vazio!")
 
       setTimeout(() => {
@@ -42,9 +42,9 @@ const App: FC = () => {
       return
     }
 
-    if (!handleInputValue(input)) {
+    if (!handleInputValue(inputValue)) {
       setError("Nome incompativel")
-      setInput('')
+      setInputValue('')
       setTimeout(() => {
         setError("")
       }, 3000)
@@ -52,7 +52,7 @@ const App: FC = () => {
     }
 
     fetchData()
-    setInput('')
+    setInputValue('')
   }
 
   return (
@@ -61,16 +61,16 @@ const App: FC = () => {
       <h1>Tibia Character Information</h1>
       <Form onSubmit={handleSubmit} >
         <Input
-          value={input}
+          value={inputValue}
           type="text"
           name="name"
           label="Nome do Personagem: "
           placeholder='Enter character name'
           onChange={
-            (e: any) => setInput(e.target.value.trim())
+            (e: any) => setInputValue(e.target.value)
           }
         />
-        <Button>SEND</Button>
+        <Button>Search</Button>
         {error && (
             <Errors>{error}</Errors>
         )}

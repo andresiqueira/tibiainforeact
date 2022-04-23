@@ -1,28 +1,58 @@
 .button {
 	background-color:#cda00e;
-	border-radius:4px;
-	border:3px solid #cda00e;
+	border-radius: 0.4rem;
+	border: 0.3rem solid #cda00e;
 	display:inline-block;
 	cursor:pointer;
 	color:#ffffff;
-    width: 50%;
-    margin-top: 10px;
+    width: 95%;
+    margin-top: 1rem;
 	font-family:Arial;
-	font-size:16px;
-	padding:16px 31px;
+	font-size: 1.15rem;
+	padding: 1rem;
 	text-decoration:none;
 }
 .button:hover {
 	background-color:#ecc238;
-    border:3px solid #ecc238;
+    border: 0.3rem solid #ecc238;
 }
 .button:active {
 	position:relative;
-	top:1px;
+	top: 0.1rem;
 }
 
-@media screen and (min-width: 1920px) {
+@media screen and (min-width: 321px) {
+	.button {
+		width: 90%;
+	}
+}
+
+@media screen and (min-width: 481px) {
+	.button {
+		width: 90%;
+	}
+
+}
+@media screen and (min-width: 601px) {
+	.button {
+		width: 70%;
+	}
+
+}
+@media screen and (min-width: 801px) {
+	.button {
+		width: 70%;
+	}
+}
+
+@media screen and (min-width: 1025px) {
 	.button {
 		width: 30%;
+	}
+}
+
+@media screen and (min-width: 1921px) {
+	.button {
+		width: 20%;
 	}
 }

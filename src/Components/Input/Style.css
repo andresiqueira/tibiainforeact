@@ -1,17 +1,17 @@
 .input {
     background-color: #e1e1e1;
     text-align: center;
-    font-size: 16px;
+    font-size: 1.15rem;
     color: #333;
-    padding: 15px;
+    padding: 1rem;
     box-sizing: border-box;
-    border-radius: 4px;
-    border: 3px solid #e1e1e1;
-    width: 50%;
+    border-radius: 0.4rem;
+    border: 0.3rem solid #e1e1e1;
+    width: 95%;
 }
 
 input:focus {
-    border: 3px solid #e1e1e1;
+    border: 0.3rem solid #e1e1e1;
     outline: none;
 }
 
@@ -19,8 +19,38 @@ input:focus {
     display: none;
 }
 
-@media screen and (min-width: 1920px) {
+@media screen and (min-width: 321px) {
+	.input {
+		width: 90%;
+	}
+}
+
+@media screen and (min-width: 481px) {
+	.input {
+		width: 90%;
+	}
+
+}
+@media screen and (min-width: 601px) {
+	.input {
+		width: 70%;
+	}
+
+}
+@media screen and (min-width: 801px) {
+	.input {
+		width: 70%;
+	}
+}
+
+@media screen and (min-width: 1025px) {
 	.input {
 		width: 30%;
+	}
+}
+
+@media screen and (min-width: 1921px) {
+	.input {
+		width: 20%;
 	}
 }
