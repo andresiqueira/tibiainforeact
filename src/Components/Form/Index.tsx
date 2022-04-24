@@ -1,10 +1,9 @@
-import React, { FC } from 'react';
-import PropTypes from 'prop-types';
+import React, { FC, FormEventHandler, ReactNode } from 'react';
 import './Style.css';
 
 interface FormProps {
-    onSubmit?: any;
-    children: any;
+    onSubmit?: FormEventHandler;
+    children: ReactNode;
 }
 
 const Form: FC<FormProps> = ({onSubmit, children}: FormProps) => {
@@ -13,11 +12,6 @@ const Form: FC<FormProps> = ({onSubmit, children}: FormProps) => {
             {children}
         </form>
     )
-}
-
-Form.propTypes = {
-    onSubmit: PropTypes.func,
-    children: PropTypes.any.isRequired
 }
 
 export default Form;

@@ -1,4 +1,4 @@
-import React, { useState, FC, useEffect } from 'react';
+import React, { useState, FC, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import './App.css';
 import Input from './Components/Input/Index';
@@ -9,11 +9,23 @@ import DataGrid from './Components/DataGrid/Index';
 import Errors from './Components/Errors/Index';
 import { handleInputValue } from './Helpers/Validators';
 
+interface IChacarterData {
+  characters: {data: {}}
+}
+interface IApi {
+  data: IChacarterData
+}
+
 const App: FC = () => {
-  const [repository, setRepository] = useState<any>(null);
+  const [repository, setRepository] = useState<IApi|null>(null);
   const [error, setError] = useState<string>('');
+  const [documentTitle , setDocumentTitle] = useState<string>('Tibia Info');
   const [inputValue, setInputValue] = useState<string>('');
   const logo: string = 'https://tibiawiki.com.br/images/5/52/Tibia_Logo.png';
+
+  useEffect(()=> {
+    document.title = documentTitle
+  },[documentTitle])
 
   const fetchData = async () => {
     await inputValue && axios.get(`${process.env.REACT_APP_API_URL}${inputValue}.json`)
@@ -25,12 +37,13 @@ const App: FC = () => {
           },3000)
           return
         }
+        setDocumentTitle(res.data.characters.data.name)   
         setRepository(res);
       })
       .catch((err) => console.log(err));
   }
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
     if (inputValue === "") {
@@ -67,7 +80,9 @@ const App: FC = () => {
           label="Nome do Personagem: "
           placeholder='Enter character name'
           onChange={
-            (e: any) => setInputValue(e.target.value)
+            (e: ChangeEvent<HTMLInputElement> ) => {
+              setInputValue(e.target.value)
+            }
           }
         />
         <Button>Search</Button>

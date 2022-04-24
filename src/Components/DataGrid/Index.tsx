@@ -1,9 +1,14 @@
 import React, { FC } from 'react';
-import PropTypes from 'prop-types'
 import './Style.css';
-
 interface DataGridProps {
-    data: any
+    data: {
+        name?:string 
+        level?:string 
+        vocation?:string 
+        sex?:string 
+        world?:string 
+        residence?:string 
+    }
 }
 
 const DataGrid: FC<DataGridProps> = ({data}: DataGridProps) => {
@@ -33,10 +38,6 @@ const DataGrid: FC<DataGridProps> = ({data}: DataGridProps) => {
             </ul>
         </div>
     )
-}
-
-DataGrid.propTypes = {
-    data: PropTypes.object
 }
 
 export default DataGrid;
