@@ -1,4 +1,4 @@
-import React, { useState, FC, useEffect, ChangeEvent, FormEvent } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import axios from 'axios';
 import './App.css';
 import Input from './Components/Input/Index';
@@ -10,13 +10,13 @@ import Errors from './Components/Errors/Index';
 import { handleInputValue } from './Helpers/Validators';
 
 interface IChacarterData {
-  characters: {data: {}}
+  characters: {character: {}}
 }
 interface IApi {
   data: IChacarterData
 }
 
-const App: FC = () => {
+const App = () => {
   const [repository, setRepository] = useState<IApi|null>(null);
   const [error, setError] = useState<string>('');
   const [documentTitle , setDocumentTitle] = useState<string>('Tibia Info');
@@ -28,16 +28,19 @@ const App: FC = () => {
   },[documentTitle])
 
   const fetchData = async () => {
-    await inputValue && axios.get(`${process.env.REACT_APP_API_URL}${inputValue}.json`)
+    await inputValue && axios.get(`${process.env.REACT_APP_API_URL}${inputValue}`)
       .then((res) => {
-        if (res.data.characters.error) {
+        console.log(res);
+        
+
+        if (res.data.characters.character.name === '') {
           setError('Personagem não existe');
           setTimeout(()=>{
             setError('')
           },3000)
           return
         }
-        setDocumentTitle(res.data.characters.data.name)   
+        setDocumentTitle(res.data.characters.character.name)   
         setRepository(res);
       })
       .catch((err) => console.log(err));
@@ -47,7 +50,7 @@ const App: FC = () => {
     e.preventDefault()
 
     if (inputValue === "") {
-      setError("Campo nao pode estar vazio!")
+      setError("Campo não pode estar vazio")
 
       setTimeout(() => {
         setError("")
@@ -90,7 +93,7 @@ const App: FC = () => {
             <Errors>{error}</Errors>
         )}
       </Form>
-      {!!repository && <DataGrid data={repository.data.characters.data} />}
+      {!!repository && <DataGrid data={repository.data.characters.character} />}
     </div>
   );
 }

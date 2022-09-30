@@ -1,13 +1,13 @@
-import React, { FC } from 'react';
+import React, {ImgHTMLAttributes} from 'react';
 
-interface ImageProps {
+interface ImageProps extends ImgHTMLAttributes<HTMLImageElement>{
     src: string;
     alt: string;
 }
 
-const Image: FC<ImageProps> = ({src, alt}:ImageProps) => {
+const Image = ({...rest}:ImageProps) => {
     return (
-        <img src={src} alt={alt}/>
+        <img {...rest}/>
     )
 }
 

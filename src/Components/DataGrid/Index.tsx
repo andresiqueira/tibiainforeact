@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import './Style.css';
 interface DataGridProps {
     data: {
@@ -11,7 +11,7 @@ interface DataGridProps {
     }
 }
 
-const DataGrid: FC<DataGridProps> = ({data}: DataGridProps) => {
+const DataGrid = ({data}: DataGridProps) => {
     const { name, level, vocation, sex, residence, world } = data;
 
     return (

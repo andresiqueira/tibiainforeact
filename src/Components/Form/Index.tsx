@@ -1,12 +1,12 @@
-import React, { FC, FormEventHandler, ReactNode } from 'react';
+import React, { FormEventHandler, FormHTMLAttributes, ReactNode } from 'react';
 import './Style.css';
 
-interface FormProps {
+interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
     onSubmit?: FormEventHandler;
     children: ReactNode;
 }
 
-const Form: FC<FormProps> = ({onSubmit, children}: FormProps) => {
+const Form = ({onSubmit, children}: FormProps) => {
     return (
         <form className='form' onSubmit={onSubmit}>
             {children}
