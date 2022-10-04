@@ -2,42 +2,42 @@ import React from 'react';
 import './Style.css';
 interface DataGridProps {
     data: {
-        name?:string 
-        level?:string 
-        vocation?:string 
-        sex?:string 
-        world?:string 
-        residence?:string 
+        name?: string
+        level?: string
+        vocation?: string
+        sex?: string
+        world?: string
+        residence?: string
     }
 }
 
-const DataGrid = ({data}: DataGridProps) => {
+const Card = ({ data }: DataGridProps) => {
     const { name, level, vocation, sex, residence, world } = data;
 
     return (
         <div className='datagrid'>
             <ul>
                 <li>
-                    Name: {name}
+                    Nome: {name}
                 </li>
                 <li>
                     Level: {level}
                 </li>
                 <li>
-                   Vocation: {vocation}
+                    Vocação: {vocation}
                 </li>
                 <li>
-                   Sex: {sex}
+                    Sexo: {sex === 'male' ? 'Masculino' : 'Feminino'}
                 </li>
                 <li>
-                   Residence: {residence}
+                    Residência: {residence}
                 </li>
                 <li>
-                   World: {world}
+                    Mundo: {world}
                 </li>
             </ul>
         </div>
     )
 }
 
-export default DataGrid;
+export default Card;
