@@ -1,50 +1,48 @@
 import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
-import axios from 'axios';
+
 import './App.css';
-import Input from './Components/Input/Index';
-import Form from './Components/Form/Index';
-import Button from './Components/Button/Index';
-import Image from './Components/Image/Index';
-import DataGrid from './Components/DataGrid/Index';
-import Errors from './Components/Errors/Index';
+
+import Input from './Components/Input';
+import Form from './Components/Form';
+import Button from './Components/Button';
+import Image from './Components/Image';
+import Card from './Components/Card';
+import Errors from './Components/Errors';
+
 import { handleInputValue } from './Helpers/Validators';
 
-interface IChacarterData {
-  characters: {character: {}}
-}
-interface IApi {
-  data: IChacarterData
-}
+import useFetch, { IApiShape } from '././Hooks/useFetch'
 
 const App = () => {
-  const [repository, setRepository] = useState<IApi|null>(null);
-  const [error, setError] = useState<string>('');
-  const [documentTitle , setDocumentTitle] = useState<string>('Tibia Info');
+  const [repository, setRepository] = useState<IApiShape | null>(null)
+  const [documentTitle, setDocumentTitle] = useState<string>('Tibia Info');
+  const [error, setError] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState<string>('');
-  const logo: string = 'https://tibiawiki.com.br/images/5/52/Tibia_Logo.png';
 
-  useEffect(()=> {
-    document.title = documentTitle
-  },[documentTitle])
+  const { responseData, fetchData, responseError } = useFetch()
 
-  const fetchData = async () => {
-    await inputValue && axios.get(`${process.env.REACT_APP_API_URL}${inputValue}`)
-      .then((res) => {
-        console.log(res);
-        
+  const logo: string = 'https://static.wikia.nocookie.net/tibia/images/d/d4/Bandit.gif/revision/latest/top-crop/width/360/height/360?cb=20180206145417&path-prefix=en';
 
-        if (res.data.characters.character.name === '') {
-          setError('Personagem não existe');
-          setTimeout(()=>{
-            setError('')
-          },3000)
-          return
-        }
-        setDocumentTitle(res.data.characters.character.name)   
-        setRepository(res);
-      })
-      .catch((err) => console.log(err));
-  }
+  document.title = documentTitle
+
+  useEffect(() => {
+    responseData && setDocumentTitle(responseData.data.characters.character.name)
+  }, [responseData])
+
+  useEffect(() => {
+    setRepository(responseData)
+  }, [responseData])
+
+  useEffect(() => {
+    if (responseError) {
+      setError(responseError)
+      setRepository(null)
+      setTimeout(() => {
+        setError(null)
+      }, 3000)
+      return
+    }
+  }, [responseError])
 
   const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
@@ -53,7 +51,7 @@ const App = () => {
       setError("Campo não pode estar vazio")
 
       setTimeout(() => {
-        setError("")
+        setError(null)
       }, 3000)
       return
     }
@@ -62,12 +60,12 @@ const App = () => {
       setError("Nome incompativel")
       setInputValue('')
       setTimeout(() => {
-        setError("")
+        setError(null)
       }, 3000)
       return
     }
 
-    fetchData()
+    fetchData(inputValue)
     setInputValue('')
   }
 
@@ -80,21 +78,22 @@ const App = () => {
           value={inputValue}
           type="text"
           name="name"
-          label="Nome do Personagem: "
-          placeholder='Enter character name'
+          label="Nome do Personagem:"
+          placeholder='Nome do personagem'
           onChange={
-            (e: ChangeEvent<HTMLInputElement> ) => {
+            (e: ChangeEvent<HTMLInputElement>) => {
               setInputValue(e.target.value)
             }
           }
         />
-        <Button>Search</Button>
+        <Button>Procurar</Button>
         {error && (
-            <Errors>{error}</Errors>
+          <Errors>{error}</Errors>
         )}
       </Form>
-      {!!repository && <DataGrid data={repository.data.characters.character} />}
+      {repository && <Card data={repository.data.characters.character} />}
     </div>
   );
 }
+
 export default App;
