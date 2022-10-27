@@ -18,12 +18,13 @@ export interface IApiShape {
   data: IChacarterShape
 }
 
-const useFetch = () => {
+const useFetch = (url: string) => {
   const [responseData, setResponseData] = useState<IApiShape | null>(null);
   const [responseError, setResponseError] = useState<string | null>(null);
 
   const fetchData = async (inputData: string) => {
-    inputData && axios.get(`${process.env.REACT_APP_API_URL}${inputData}`)
+    if (url) {
+      inputData && axios.get(url + inputData )
       .then((res) => {
         if (res.data.characters.character.name === '') {
           setResponseError('Personagem não existe');
@@ -33,6 +34,7 @@ const useFetch = () => {
         setResponseData(res);
       })
       .catch((err) => console.log(err));
+    }
   }
 
   return { responseData, fetchData, responseError }

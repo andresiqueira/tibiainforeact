@@ -19,7 +19,7 @@ const App = () => {
   const [error, setError] = useState<string | null>(null);
   const [inputValue, setInputValue] = useState<string>('');
 
-  const { responseData, fetchData, responseError } = useFetch()
+  const { responseData, fetchData, responseError } = useFetch(process.env.REACT_APP_API_URL!)
 
   const logo: string = 'https://static.wikia.nocookie.net/tibia/images/d/d4/Bandit.gif/revision/latest/top-crop/width/360/height/360?cb=20180206145417&path-prefix=en';
 
