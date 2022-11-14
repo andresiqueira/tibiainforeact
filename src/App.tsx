@@ -21,7 +21,7 @@ const App = () => {
 
   const { responseData, fetchData, responseError } = useFetch(process.env.REACT_APP_API_URL!)
 
-  const logo: string = 'https://static.wikia.nocookie.net/tibia/images/d/d4/Bandit.gif/revision/latest/top-crop/width/360/height/360?cb=20180206145417&path-prefix=en';
+  const logo: string = 'tibia.gif';
 
   document.title = documentTitle
 
@@ -71,7 +71,7 @@ const App = () => {
 
   return (
     <div className='App'>
-      <Image src={logo} alt='Logo Tibia' />
+      <Image src={logo} alt='Logo Tibia' width={200} height={150} />
       <h1>Tibia Character Information</h1>
       <Form onSubmit={handleSubmit} >
         <Input
