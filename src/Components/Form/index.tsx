@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
 import Input from '../Input';
 import Button from '../Button';
 import useFetch, { IApiShape } from '../../Hooks/useFetch';
 import './Style.css';
 
 const Form = () => {
-    const { register, handleSubmit } = useForm<any>();
+    const { register, handleSubmit } = useForm<FieldValues>();
     const { responseData, fetchData, responseError } = useFetch(process.env.REACT_APP_API_URL!)
     const [repository, setRepository] = useState<IApiShape | null>(null)
 
@@ -14,15 +14,13 @@ const Form = () => {
     setRepository(responseData)
     }, [responseData])
 
-    const onSubmit: SubmitHandler<any> = data => {
+    const onSubmit: SubmitHandler<FieldValues> = data => {
         fetchData(data.name)
-        console.log(data.name);
     }
     useEffect(() => {
         responseData && console.log(responseData)
     }, [responseData])
 
-    console.log(repository)
     return (
         <form className='form' onSubmit={handleSubmit(onSubmit)}>
             <Input 

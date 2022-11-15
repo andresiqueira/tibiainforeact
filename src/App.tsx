@@ -2,16 +2,12 @@ import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
 import './App.css';
 
-import Input from './Components/Input';
 import Form from './Components/Form';
-import Button from './Components/Button';
 import Image from './Components/Image';
 import Card from './Components/Card';
 import Errors from './Components/Errors';
 
 import { handleInputValue } from './Helpers/Validators';
-
-import useFetch, { IApiShape } from '././Hooks/useFetch'
 
 const App = () => {
   const [documentTitle, setDocumentTitle] = useState<string>('Tibia Info');
