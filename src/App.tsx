@@ -14,66 +14,62 @@ import { handleInputValue } from './Helpers/Validators';
 import useFetch, { IApiShape } from '././Hooks/useFetch'
 
 const App = () => {
-  const [repository, setRepository] = useState<IApiShape | null>(null)
   const [documentTitle, setDocumentTitle] = useState<string>('Tibia Info');
   const [error, setError] = useState<string | null>(null);
-  const [inputValue, setInputValue] = useState<string>('');
-
-  const { responseData, fetchData, responseError } = useFetch(process.env.REACT_APP_API_URL!)
 
   const logo: string = 'tibia.gif';
 
   document.title = documentTitle
 
-  useEffect(() => {
-    responseData && setDocumentTitle(responseData.data.characters.character.name)
-  }, [responseData])
+  // useEffect(() => {
+  //   responseData && setDocumentTitle(responseData.data.characters.character.name)
+  // }, [responseData])
 
-  useEffect(() => {
-    setRepository(responseData)
-  }, [responseData])
+  // useEffect(() => {
+  //   setRepository(responseData)
+  // }, [responseData])
 
-  useEffect(() => {
-    if (responseError) {
-      setError(responseError)
-      setRepository(null)
-      setTimeout(() => {
-        setError(null)
-      }, 3000)
-      return
-    }
-  }, [responseError])
+  // useEffect(() => {
+  //   if (responseError) {
+  //     setError(responseError)
+  //     setRepository(null)
+  //     setTimeout(() => {
+  //       setError(null)
+  //     }, 3000)
+  //     return
+  //   }
+  // }, [responseError])
 
-  const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
-    e.preventDefault()
+  // const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
+  //   e.preventDefault()
 
-    if (inputValue === "") {
-      setError("Campo não pode estar vazio")
+  //   if (inputValue === "") {
+  //     setError("Campo não pode estar vazio")
 
-      setTimeout(() => {
-        setError(null)
-      }, 3000)
-      return
-    }
+  //     setTimeout(() => {
+  //       setError(null)
+  //     }, 3000)
+  //     return
+  //   }
 
-    if (!handleInputValue(inputValue)) {
-      setError("Nome incompativel")
-      setInputValue('')
-      setTimeout(() => {
-        setError(null)
-      }, 3000)
-      return
-    }
+  //   if (!handleInputValue(inputValue)) {
+  //     setError("Nome incompativel")
+  //     setInputValue('')
+  //     setTimeout(() => {
+  //       setError(null)
+  //     }, 3000)
+  //     return
+  //   }
 
-    fetchData(inputValue)
-    setInputValue('')
-  }
+  //   fetchData(inputValue)
+  //   setInputValue('')
+  // }
 
   return (
     <div className='App'>
       <Image src={logo} alt='Logo Tibia' width={200} height={150} />
       <h1>Tibia Character Information</h1>
-      <Form onSubmit={handleSubmit} >
+      {/* <Form onSubmit={handleSubmit} >
         <Input
           value={inputValue}
           type="text"
@@ -90,8 +86,9 @@ const App = () => {
         {error && (
           <Errors>{error}</Errors>
         )}
-      </Form>
-      {repository && <Card data={repository.data.characters.character} />}
+      </Form> */}
+      <Form />
+      {/* {repository && <Card data={repository.data.characters.character} />} */}
     </div>
   );
 }
