@@ -6,35 +6,33 @@ import Form from './Components/Form';
 import Image from './Components/Image';
 import Card from './Components/Card';
 import Errors from './Components/Errors';
+import { IApiShape } from './Hooks/useFetch';
 
 import { handleInputValue } from './Helpers/Validators';
 
 const App = () => {
   const [documentTitle, setDocumentTitle] = useState<string>('Tibia Info');
   const [error, setError] = useState<string | null>(null);
+  const [characterData, setCharacterData] = useState<any>(null)
 
   const logo: string = 'tibia.gif';
-
+  console.log('dados da api :', characterData)
+  console.log('erro da api :', error)
   document.title = documentTitle
 
-  // useEffect(() => {
-  //   responseData && setDocumentTitle(responseData.data.characters.character.name)
-  // }, [responseData])
+  useEffect(() => {
+    characterData && setDocumentTitle(characterData.data.characters.character.name)
+  }, [characterData])
 
-  // useEffect(() => {
-  //   setRepository(responseData)
-  // }, [responseData])
-
-  // useEffect(() => {
-  //   if (responseError) {
-  //     setError(responseError)
-  //     setRepository(null)
-  //     setTimeout(() => {
-  //       setError(null)
-  //     }, 3000)
-  //     return
-  //   }
-  // }, [responseError])
+  useEffect(() => {
+    if (error) {
+      setCharacterData(null)
+      setTimeout(() => {
+        setError(null)
+      }, 3000)
+      return
+    }
+  }, [error])
 
   // const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
   //   e.preventDefault()
@@ -62,30 +60,15 @@ const App = () => {
   // }
 
   return (
-    <div className='App'>
-      <Image src={logo} alt='Logo Tibia' width={200} height={150} />
-      <h1>Tibia Character Information</h1>
-      {/* <Form onSubmit={handleSubmit} >
-        <Input
-          value={inputValue}
-          type="text"
-          name="name"
-          label="Nome do Personagem:"
-          placeholder='Nome do personagem'
-          onChange={
-            (e: ChangeEvent<HTMLInputElement>) => {
-              setInputValue(e.target.value)
-            }
-          }
-        />
-        <Button>Procurar</Button>
+      <div className='App'>
+        <Image src={logo} alt='Logo Tibia' width={200} height={150} />
+        <h1>Tibia Character Information</h1>
+        <Form data={setCharacterData} error={setError} />
         {error && (
           <Errors>{error}</Errors>
         )}
-      </Form> */}
-      <Form />
-      {/* {repository && <Card data={repository.data.characters.character} />} */}
-    </div>
+        {characterData && <Card data={characterData.data.characters.character} />}
+      </div>
   );
 }
 

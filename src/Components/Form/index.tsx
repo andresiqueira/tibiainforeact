@@ -1,29 +1,40 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+
 import { useForm, SubmitHandler, FieldValues } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
+
 import Input from '../Input';
 import Button from '../Button';
-import useFetch, { IApiShape } from '../../Hooks/useFetch';
+import useFetch from '../../Hooks/useFetch';
 import './Style.css';
 
-const Form = () => {
-    const { register, handleSubmit } = useForm<FieldValues>();
+const schema = yup.object({
+    name: yup.string().matches(/^[a-zA-Z\s]*$/, "É permitido somente letras").required('Entre com um nome de personagem')
+}).required()
+
+const Form = ({ data, error }: any) => {
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<FieldValues>({
+        resolver: yupResolver(schema)
+    });
     const { responseData, fetchData, responseError } = useFetch(process.env.REACT_APP_API_URL!)
-    const [repository, setRepository] = useState<IApiShape | null>(null)
 
     useEffect(() => {
-    setRepository(responseData)
+        data(responseData)
     }, [responseData])
 
-    const onSubmit: SubmitHandler<FieldValues> = data => {
-        fetchData(data.name)
+    useEffect(() => {
+        error(responseError)
+    }, [responseError])
+
+    const onSubmit: SubmitHandler<FieldValues> = characterData => {
+        fetchData(characterData.name)
+        reset()
     }
-    useEffect(() => {
-        responseData && console.log(responseData)
-    }, [responseData])
-
+    console.log(errors.name)
     return (
         <form className='form' onSubmit={handleSubmit(onSubmit)}>
-            <Input 
+            <Input
                 label="name"
                 register={register}
             />
