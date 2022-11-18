@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Icon } from '@iconify/react'
 import './Style.css';
 interface DataGridProps {
     data: {
@@ -12,7 +13,15 @@ interface DataGridProps {
 }
 
 const Card = ({ data }: DataGridProps) => {
+    const [isopen, setIsOpen] = useState<boolean>(false)
+
     const { name, level, vocation, sex, residence, world } = data;
+
+    useEffect(() => {
+        if(data) {
+            setIsOpen(true)
+        }
+    }, [data])
 
     return (
         <div className='datagrid'>
@@ -36,6 +45,8 @@ const Card = ({ data }: DataGridProps) => {
                     Mundo: {world}
                 </li>
             </ul>
+            <button className='close-button' onClick={() => setIsOpen(false)}><Icon width={50} height={50} style={{color: "#DC2626", background: "#e1e1e1", borderRadius: "100%"}} icon="carbon:close-filled" /></button>
+
         </div>
     )
 }

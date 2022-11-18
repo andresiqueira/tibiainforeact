@@ -1,5 +1,7 @@
 .error {
-    margin-top: 1rem;
-    font-size: 1.2rem ;
+    margin-top: 29rem;
+    border-radius: 10px;
+    font-size: 1rem ;
     color: #e1e1e1;
+    position: fixed;
 }

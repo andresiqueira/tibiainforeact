@@ -9,6 +9,7 @@ import Errors from './Components/Errors';
 import { IApiShape } from './Hooks/useFetch';
 
 import { handleInputValue } from './Helpers/Validators';
+import { clearTimeout } from 'timers';
 
 const App = () => {
   const [documentTitle, setDocumentTitle] = useState<string>('Tibia Info');
@@ -30,34 +31,8 @@ const App = () => {
       setTimeout(() => {
         setError(null)
       }, 3000)
-      return
     }
   }, [error])
-
-  // const handleSubmit = (e: FormEvent<HTMLButtonElement>) => {
-  //   e.preventDefault()
-
-  //   if (inputValue === "") {
-  //     setError("Campo não pode estar vazio")
-
-  //     setTimeout(() => {
-  //       setError(null)
-  //     }, 3000)
-  //     return
-  //   }
-
-  //   if (!handleInputValue(inputValue)) {
-  //     setError("Nome incompativel")
-  //     setInputValue('')
-  //     setTimeout(() => {
-  //       setError(null)
-  //     }, 3000)
-  //     return
-  //   }
-
-  //   fetchData(inputValue)
-  //   setInputValue('')
-  // }
 
   return (
       <div className='App'>

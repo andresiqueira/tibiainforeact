@@ -1,10 +1,10 @@
 .datagrid {
     background-color: #e1e1e1;
-    position: relative;
+    position: fixed;
     padding: 2rem 5rem 2rem 5rem;
     width: 90%;
-    height: fit-content;
-    display: block;
+    height: 400px;
+    display: flex;
     margin-top: 1.1rem;
     box-sizing: border-box;
     align-items: center;
@@ -13,6 +13,16 @@
     text-align: left;
     color: #333;
     border-radius: 0.4rem;
+		border: 3px solid #999;
+}
+
+.close-button {
+	position: absolute;
+	top: -25px;
+	right: -25px;
+	background: transparent;
+	border: none;
+	cursor: pointer;
 }
 
 .datagrid ul {

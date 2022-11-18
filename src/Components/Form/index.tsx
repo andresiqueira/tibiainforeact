@@ -10,7 +10,9 @@ import useFetch from '../../Hooks/useFetch';
 import './Style.css';
 
 const schema = yup.object({
-    name: yup.string().matches(/^[a-zA-Z\s]*$/, "É permitido somente letras").required('Entre com um nome de personagem')
+    name: yup.string()
+        .matches(/^[a-zA-Z\s]*$/, "É permitido somente letras")
+        .required('Entre com um nome de personagem')
 }).required()
 
 const Form = ({ data, error }: any) => {
@@ -27,11 +29,17 @@ const Form = ({ data, error }: any) => {
         error(responseError)
     }, [responseError])
 
+    useEffect(() => {
+        if (errors.name) {
+        error(errors.name.message)
+        }
+    }, [errors.name])
+
     const onSubmit: SubmitHandler<FieldValues> = characterData => {
         fetchData(characterData.name)
         reset()
     }
-    console.log(errors.name)
+
     return (
         <form className='form' onSubmit={handleSubmit(onSubmit)}>
             <Input
