@@ -13,7 +13,7 @@ interface DataGridProps {
 }
 
 const Card = ({ data }: DataGridProps) => {
-    const [isopen, setIsOpen] = useState<boolean>(false)
+    const [isOpen, setIsOpen] = useState<boolean>(false)
 
     const { name, level, vocation, sex, residence, world } = data;
 
@@ -22,6 +22,10 @@ const Card = ({ data }: DataGridProps) => {
             setIsOpen(true)
         }
     }, [data])
+    
+    if (!isOpen) {
+        return null
+    }
 
     return (
         <div className='datagrid'>
@@ -45,7 +49,7 @@ const Card = ({ data }: DataGridProps) => {
                     Mundo: {world}
                 </li>
             </ul>
-            <button className='close-button' onClick={() => setIsOpen(false)}><Icon width={50} height={50} style={{color: "#DC2626", background: "#e1e1e1", borderRadius: "100%"}} icon="carbon:close-filled" /></button>
+            <button className='close-button' onClick={() => setIsOpen(false)}><Icon width={50} height={50} style={{color: "#cda00e", background: "#e1e1e1", borderRadius: "100%"}} icon="carbon:close-filled" /></button>
 
         </div>
     )
