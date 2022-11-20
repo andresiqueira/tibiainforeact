@@ -55,7 +55,7 @@ const Form = ({ data, error }: any) => {
                     register={register}
                 />
                 <Button>Procurar</Button>
-                {isLoadin && <Icon style={{ width: "30px", height: "30px", top: "160px", position: "absolute" }} icon="eos-icons:loading" />}
+                {isLoadin && <Icon style={{ width: "30px", height: "30px", top: "200px", position: "absolute" }} icon="eos-icons:loading" />}
             </form>
         </>
     )
