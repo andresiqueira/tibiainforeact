@@ -23,17 +23,22 @@ const useFetch = (url: string) => {
   const [responseError, setResponseError] = useState<string | null>(null);
 
   const fetchData = async (inputData: string) => {
-    if (url) {
-      inputData && axios.get(url + inputData )
-      .then((res) => {
-        if (res.data.characters.character.name === '') {
-          setResponseError('Personagem não existe');
-          return
-        }
+    const cancelToken = axios.CancelToken;
+    const source = cancelToken.source();
 
-        setResponseData(res);
-      })
-      .catch((err) => console.log(err));
+    if (url) {
+      inputData && axios.get(url + inputData, { cancelToken: source.token })
+        .then((res) => {
+          if (res.data.characters.character.name === '') {
+            setResponseError('Personagem não existe');
+            return
+          }
+
+          setResponseData(res);
+        })
+        .catch((err) => {
+          axios.isCancel(err) ? console.log('Request canceled', err.message) : false
+        });
     }
   }
 
